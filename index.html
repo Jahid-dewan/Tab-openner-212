@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TabLaunch X - Twitter Post Multi-Tab Opener</title>
+    <meta name="description" content="Open up to 30 Chrome tabs for any Twitter or X post with one click, URL sanitization, popup blocker guide, and batch launcher." />
+    <meta property="og:title" content="TabLaunch X - Twitter Post Multi-Tab Opener" />
+    <meta property="og:description" content="Open up to 30 Chrome tabs for any Twitter or X post with one click, URL sanitization, popup blocker guide, and batch launcher." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script>
+      // Filter out noisy errors injected by external browser extensions (e.g. Talisman, crypto wallets)
+      (function() {
+        function isExtensionError(msg, src, err) {
+          var str = (msg || '') + ' ' + (src || '') + ' ' + (err && err.stack ? err.stack : '');
+          return (
+            str.indexOf('chrome-extension://') !== -1 ||
+            str.indexOf('moz-extension://') !== -1 ||
+            str.indexOf('Talisman') !== -1 ||
+            str.indexOf('extension has not been configured') !== -1
+          );
+        }
+
+        var origOnError = window.onerror;
+        window.onerror = function(msg, src, line, col, err) {
+          if (isExtensionError(msg, src, err)) {
+            return true;
+          }
+          if (typeof origOnError === 'function') {
+            return origOnError.apply(this, arguments);
+          }
+          return false;
+        };
+
+        window.addEventListener('error', function(event) {
+          if (isExtensionError(event.message, event.filename, event.error)) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        }, true);
+
+        window.addEventListener('unhandledrejection', function(event) {
+          var reasonStr = (event.reason && (event.reason.message || event.reason.stack)) || String(event.reason || '');
+          if (
+            reasonStr.indexOf('chrome-extension://') !== -1 ||
+            reasonStr.indexOf('moz-extension://') !== -1 ||
+            reasonStr.indexOf('Talisman') !== -1 ||
+            reasonStr.indexOf('extension has not been configured') !== -1
+          ) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        }, true);
+      })();
+    </script>
+  </head>
+  <body class="bg-neutral-950 text-neutral-100 min-h-screen selection:bg-sky-500/20 selection:text-sky-300 antialiased font-sans">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
