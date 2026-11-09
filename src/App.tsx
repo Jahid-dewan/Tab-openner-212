@@ -242,6 +242,42 @@ export default function App() {
     }
   };
 
+  const handleOpenNextBlockedTab = () => {
+    if (!effectiveUrl) return;
+    const nextBlocked = tabs.find((t) => t.status === 'blocked');
+    if (nextBlocked) {
+      handleOpenSingleTab(nextBlocked.id);
+    }
+  };
+
+  const handleRetryBlockedTabs = async () => {
+    if (!effectiveUrl) return;
+    const blocked = tabs.filter((t) => t.status === 'blocked');
+    for (const tab of blocked) {
+      handleOpenSingleTab(tab.id);
+      await new Promise((r) => setTimeout(r, 60));
+    }
+  };
+
+  // Keyboard shortcut: Spacebar opens next blocked tab without scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const activeTag = (document.activeElement?.tagName || '').toLowerCase();
+      if (activeTag === 'input' || activeTag === 'textarea') return;
+
+      if (e.code === 'Space') {
+        const hasBlocked = tabs.some((t) => t.status === 'blocked');
+        if (hasBlocked) {
+          e.preventDefault();
+          handleOpenNextBlockedTab();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [tabs, effectiveUrl]);
+
   const handleCopyAllUrls = async () => {
     if (!effectiveUrl) return;
     const urls = Array(tabCount).fill(effectiveUrl).join('\n');
@@ -344,7 +380,10 @@ export default function App() {
             tabs={tabs}
             targetUrl={effectiveUrl}
             onOpenSingleTab={handleOpenSingleTab}
+            onOpenNextBlockedTab={handleOpenNextBlockedTab}
+            onRetryBlockedTabs={handleRetryBlockedTabs}
             onCopyAllUrls={handleCopyAllUrls}
+            onOpenGuide={() => setIsGuideModalOpen(true)}
             copied={copiedUrls}
           />
         </section>
