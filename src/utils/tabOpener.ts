@@ -56,7 +56,7 @@ export function testPopupPermission(): Promise<boolean> {
  * Useful if the user wants to launch outside an iframe or keep an opener shortcut.
  */
 export function generateStandaloneOpenerHtml(url: string, count: number, staggerMs: number = 5000): string {
-  const safeCount = Math.min(Math.max(1, count), 30);
+  const safeCount = Math.min(Math.max(1, count), 60);
   const escapedUrl = JSON.stringify(url);
   const delayInSeconds = (staggerMs / 1000).toFixed(1);
 
@@ -277,7 +277,7 @@ export function downloadFile(filename: string, content: string, mimeType: string
  * Generates terminal commands to launch N tabs directly in Chrome on macOS, Windows, or Linux.
  */
 export function generateChromeCommand(url: string, count: number, os: 'windows' | 'mac' | 'linux'): string {
-  const safeCount = Math.min(Math.max(1, count), 30);
+  const safeCount = Math.min(Math.max(1, count), 60);
   const urls = Array(safeCount).fill(`"${url}"`).join(' ');
 
   switch (os) {

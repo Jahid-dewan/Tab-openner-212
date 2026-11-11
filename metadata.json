@@ -1,6 +1,6 @@
 {
   "name": "TabLaunch X - Twitter Post Multi-Tab Opener",
-  "description": "Open up to 30 Chrome tabs for any Twitter or X post with one click, URL sanitization, popup blocker guide, and batch launcher.",
+  "description": "Open up to 60 Chrome tabs for any Twitter or X post with one click, URL sanitization, popup blocker guide, and batch launcher.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

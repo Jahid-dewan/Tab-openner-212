@@ -336,7 +336,7 @@ export default function App() {
             Twitter Post Multi-Tab Opener
           </h1>
           <p className="text-sm text-neutral-400 max-w-2xl leading-relaxed">
-            Paste one X / Twitter post URL, select up to 30 simultaneous Chrome tabs, and click Start. Clean URL sanitization removes tracking parameters automatically.
+            Paste one X / Twitter post URL, select up to 60 simultaneous Chrome tabs, and click Start. Clean URL sanitization removes tracking parameters automatically.
           </p>
         </section>
 
@@ -351,11 +351,11 @@ export default function App() {
             onToggleStripTracking={() => setStripTrackingParams((v) => !v)}
           />
 
-          {/* Section 2: Tab Count Selector (Limit 30) */}
+          {/* Section 2: Tab Count Selector (Limit 60) */}
           <TabCountSlider
             count={tabCount}
             onChange={setTabCount}
-            maxLimit={30}
+            maxLimit={60}
           />
 
           {/* Section 3: Start Launch Controller */}
@@ -409,7 +409,7 @@ export default function App() {
             <span>·</span>
             <span>Single Twitter Post Multi-Tab Opener</span>
             <span>·</span>
-            <span className="font-mono tabular-nums">Max Limit: 30 Tabs</span>
+            <span className="font-mono tabular-nums">Max Limit: 60 Tabs</span>
           </div>
 
           <div className="flex items-center gap-4 text-neutral-400">

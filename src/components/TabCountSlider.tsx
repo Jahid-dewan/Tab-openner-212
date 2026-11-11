@@ -10,9 +10,9 @@ interface TabCountSliderProps {
 export const TabCountSlider: React.FC<TabCountSliderProps> = ({
   count,
   onChange,
-  maxLimit = 30,
+  maxLimit = 60,
 }) => {
-  const PRESETS = [1, 5, 10, 15, 20, 25, 30];
+  const PRESETS = [1, 5, 10, 20, 30, 45, 60];
 
   const handleIncrement = () => {
     if (count < maxLimit) onChange(count + 1);
@@ -101,9 +101,9 @@ export const TabCountSlider: React.FC<TabCountSliderProps> = ({
         {/* Dynamic Scale Markers */}
         <div className="flex justify-between text-[11px] text-neutral-500 font-mono tabular-nums px-0.5">
           <span>1 Tab</span>
-          <span>10 Tabs</span>
           <span>20 Tabs</span>
-          <span className="font-semibold text-sky-400">30 Tabs (Max)</span>
+          <span>40 Tabs</span>
+          <span className="font-semibold text-sky-400">{maxLimit} Tabs (Max)</span>
         </div>
       </div>
 
